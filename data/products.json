@@ -1,0 +1,111 @@
+[
+  {
+    "id": "ch-01",
+    "slug": "solace-cross-gothic-hoodie",
+    "name": "SOLACE CROSS HOODIE",
+    "category": "Outerwear",
+    "price": 280,
+    "oldPrice": 350,
+    "images": [
+      "https://images.unsplash.com/photo-1556821840-3a63f95609a7?auto=format&fit=crop&q=80&w=1200",
+      "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?auto=format&fit=crop&q=80&w=1200"
+    ],
+    "description": "Premium heavy-weight loopback cotton hoodie with signature gothic hardware and custom embroidered design details on front and back. Inspired by heritage cross designs, with a modernized fit.",
+    "sizes": ["S", "M", "L", "XL"],
+    "materials": ["100% Organic Heavyweight Cotton", "Sterling Silver Gothic Hardwear"],
+    "details": [
+      "Custom metal-tipped cross drawstrings",
+      "Ribbed side panels and cuffs",
+      "Double-lined hood",
+      "460gsm heavy brushed loopback fabric"
+    ],
+    "isSale": true,
+    "isLimited": true
+  },
+  {
+    "id": "gh-02",
+    "slug": "solace-signature-graphic-hoodie",
+    "name": "SOLACE OVERSIZED GRAPHIC HOODIE",
+    "category": "Outerwear",
+    "price": 240,
+    "images": [
+      "https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?auto=format&fit=crop&q=80&w=1200",
+      "https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&q=80&w=1200"
+    ],
+    "description": "Oversized silhouette sweatshirt crafted in heavy loopback cotton. Features an offset monochrome graphic logo printed on front chest and reflective brand logo print on back.",
+    "sizes": ["S", "M", "L", "XL"],
+    "materials": ["100% French Terry Cotton", "Reflective Ink Prints"],
+    "details": [
+      "Dropped shoulders",
+      "Kangaroo pocket with hidden zip compartment",
+      "Pre-shrunk and garment dyed for vintage feel",
+      "Made in Portugal"
+    ],
+    "isExclusive": true
+  },
+  {
+    "id": "cr-03",
+    "slug": "solace-streetwear-crocs-custom",
+    "name": "SOLACE STYLED platform CLOGS",
+    "category": "Footwear",
+    "price": 140,
+    "oldPrice": 180,
+    "images": [
+      "https://images.unsplash.com/photo-1608256246200-53e635b5b65f?auto=format&fit=crop&q=80&w=1200",
+      "https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?auto=format&fit=crop&q=80&w=1200"
+    ],
+    "description": "Limited streetwear iteration of the platform clog. Finished in a matte monochrome textured coat and customizable custom gothic hardware attachments. Designed for maximum post-modern presence.",
+    "sizes": ["US 7", "US 8", "US 9", "US 10", "US 11"],
+    "materials": ["Custom High-Density EVA Foam", "Polished Chrome Hardware charms"],
+    "details": [
+      "Oversized block platform sole (60mm elevation)",
+      "Breathable multi-port top shell",
+      "Includes set of 5 exclusive Solace silver charms",
+      "Adjustable padded backstrap"
+    ],
+    "isSale": true,
+    "isLimited": true
+  },
+  {
+    "id": "ac-04",
+    "slug": "solace-silver-cross-ring-set",
+    "name": "CHROME SOLACE RING SET",
+    "category": "Accessories",
+    "price": 310,
+    "images": [
+      "https://images.unsplash.com/photo-1617038260897-41a1f14a8ca0?auto=format&fit=crop&q=80&w=1200",
+      "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&q=80&w=1200"
+    ],
+    "description": "A set of three solid sterling silver rings featuring custom gothic detailing, signature cross carving, and cross engravings. Hand-finished for an antiqued, worn aesthetic.",
+    "sizes": ["S (US 8)", "M (US 9.5)", "L (US 11)"],
+    "materials": [".925 Solid Sterling Silver"],
+    "details": [
+      "Includes 3 distinct designs (Signet, Band, and Cross-Overlay)",
+      "Laser-etched internal logo engraving",
+      "Ships with custom branded leather pouch and polish cloth",
+      "Handcrafted in Italy"
+    ],
+    "isExclusive": true
+  },
+  {
+    "id": "sn-05",
+    "slug": "solace-runner-monochrome",
+    "name": "SOLACE RUNNER V1 - MONOCHROME",
+    "category": "Footwear",
+    "price": 390,
+    "images": [
+      "https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?auto=format&fit=crop&q=80&w=1200",
+      "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&q=80&w=1200"
+    ],
+    "description": "Technical lifestyle runner with a multi-layered panel construction. Features dark breathable mesh underlays, suede panels, and an advanced shock-absorbing segmented midsole design.",
+    "sizes": ["EU 40", "EU 41", "EU 42", "EU 43", "EU 44", "EU 45"],
+    "materials": ["Italian Calf Suede", "Technical Poly Mesh", "Vibram Outsole"],
+    "details": [
+      "Reflective piping accents",
+      "Dual-density cushioned footbed",
+      "Padded collar and raw-cut tongue detail",
+      "Subtle embossed brand lettering on side"
+    ],
+    "isLimited": true
+  }
+]
