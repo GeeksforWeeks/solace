@@ -3,6 +3,7 @@
 import React, { useState, Suspense } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import ProductCard from '@/components/product-card/ProductCard';
+import BrandLoader from '@/components/BrandLoader';
 import Footer from '@/sections/footer/Footer';
 import { useProducts } from '@/hooks/use-products';
 
@@ -131,9 +132,7 @@ export default function Catalog() {
   return (
     <Suspense
       fallback={
-        <div className="min-h-screen bg-black flex items-center justify-center text-white font-display text-xs tracking-widest uppercase">
-          LOADING CATALOG ARCHIVE...
-        </div>
+        <BrandLoader/>
       }
     >
       <CatalogContent />

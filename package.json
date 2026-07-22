@@ -10,6 +10,8 @@
   },
   "dependencies": {
     "@hookform/resolvers": "^5.4.0",
+    "@supabase/ssr": "^0.12.3",
+    "@supabase/supabase-js": "^2.110.8",
     "embla-carousel-react": "^8.6.0",
     "framer-motion": "^12.42.2",
     "lenis": "^1.3.25",
