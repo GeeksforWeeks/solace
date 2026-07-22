@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
+import ProductImage from '@/components/product-image/ProductImage';
 
 export default function Collections() {
   const [hoveredIdx, setHoveredIdx] = useState<number | null>(null);
@@ -60,11 +61,11 @@ export default function Collections() {
             >
               {/* Image Container with zoom */}
               <div className="absolute inset-0 w-full h-full">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
+                <ProductImage
                   src={col.image}
                   alt={col.title}
-                  className="w-full h-full object-cover transition-transform duration-[1200ms] ease-out group-hover:scale-105"
+                  aspectRatioClassName="aspect-4/5"
+                  className="transition-transform duration-[1200ms] ease-out group-hover:scale-105"
                 />
               </div>
 

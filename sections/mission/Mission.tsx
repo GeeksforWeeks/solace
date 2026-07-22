@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { motion } from 'framer-motion';
+import { motion, Variants } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import Link from 'next/link';
 
@@ -9,7 +9,7 @@ export default function Mission() {
   const [ref1, inView1] = useInView({ triggerOnce: true, threshold: 0.15 });
   const [ref2, inView2] = useInView({ triggerOnce: true, threshold: 0.15 });
 
-  const textVariants = {
+  const textVariants: Variants = {
     hidden: { opacity: 0, y: 40 },
     visible: {
       opacity: 1,
@@ -18,7 +18,7 @@ export default function Mission() {
     },
   };
 
-  const imageVariants = {
+  const imageVariants: Variants = {
     hidden: { opacity: 0, scale: 1.05 },
     visible: {
       opacity: 1,

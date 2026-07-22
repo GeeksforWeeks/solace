@@ -2,11 +2,13 @@
 
 import React, { use, useState, useEffect } from 'react';
 import { useStore } from '@/hooks/use-cart-store';
-import productsData from '@/data/products.json';
 import ProductCard from '@/components/product-card/ProductCard';
 import Footer from '@/sections/footer/Footer';
 import { Heart, ShoppingBag, Truck, RefreshCw, Shield, AlertTriangle } from 'lucide-react';
 import Link from 'next/link';
+import { useProducts } from '@/hooks/use-products';
+import ProductImage from '@/components/product-image/ProductImage';
+import configData from '@/data/config.json';
 
 interface ProductPageProps {
   params: Promise<{ slug: string }>;
@@ -16,8 +18,8 @@ export default function ProductPage({ params }: ProductPageProps) {
   // Unwrap the Next.js 15 async params promise
   const { slug } = use(params);
 
-  // Find product by slug
-  const product = productsData.find((p) => p.slug === slug);
+  const { products, loading } = useProducts();
+  const product = products.find((p) => p.slug === slug);
 
   // State
   const [activeImage, setActiveImage] = useState('');
@@ -25,7 +27,7 @@ export default function ProductPage({ params }: ProductPageProps) {
   const [showSizeError, setShowSizeError] = useState(false);
   const [activeTab, setActiveTab] = useState<'desc' | 'materials' | 'shipping'>('desc');
 
-  const { addToCart, toggleWishlist, wishlist } = useStore();
+  const { toggleWishlist, wishlist, setSizeMatrixOpen } = useStore();
 
   // Set default active image once product is resolved
   useEffect(() => {
@@ -35,6 +37,14 @@ export default function ProductPage({ params }: ProductPageProps) {
       setShowSizeError(false);
     }
   }, [product]);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-black text-white flex items-center justify-center font-display text-xs tracking-widest uppercase">
+        LOADING COLLECTION GARMENT...
+      </div>
+    );
+  }
 
   if (!product) {
     return (
@@ -61,17 +71,26 @@ export default function ProductPage({ params }: ProductPageProps) {
 
   const isWishlisted = wishlist.some((item) => item.id === product.id);
 
-  const handleAddToBag = () => {
+  const handleOrderWhatsApp = () => {
     if (!selectedSize) {
       setShowSizeError(true);
       return;
     }
     setShowSizeError(false);
-    addToCart(product, selectedSize, 1);
+    
+    const defaultPhone = configData.whatsapp.phoneNumber;
+    const itemUrl = window.location.href;
+    const text = configData.whatsapp.prefilledTextProduct
+      .replace('{productName}', product.name)
+      .replace('{size}', selectedSize)
+      .replace('{price}', product.price.toString())
+      .replace('{productUrl}', itemUrl);
+
+    window.open(`https://wa.me/${defaultPhone}?text=${encodeURIComponent(text)}`, '_blank');
   };
 
   // Recommendations: Other products
-  const recommendations = productsData
+  const recommendations = products
     .filter((p) => p.id !== product.id)
     .slice(0, 3);
 
@@ -105,14 +124,11 @@ export default function ProductPage({ params }: ProductPageProps) {
             
             {/* Left Side: Photo Gallery (Columns: 7/12) */}
             <div className="lg:col-span-7 space-y-4">
-              <div className="relative aspect-3/4 w-full bg-neutral-950 border border-border-custom overflow-hidden">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={activeImage || product.images[0]}
-                  alt={product.name}
-                  className="w-full h-full object-cover grayscale brightness-90 transition-all duration-500"
-                />
-              </div>
+              <ProductImage
+                src={activeImage || product.images[0]}
+                alt={product.name}
+                className="transition-all duration-500"
+              />
 
               {/* Grid Thumbnails */}
               <div className="grid grid-cols-4 gap-4">
@@ -126,11 +142,10 @@ export default function ProductPage({ params }: ProductPageProps) {
                         : 'border-border-custom'
                     }`}
                   >
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
+                    <ProductImage
                       src={img}
                       alt={`${product.name} thumbnail view ${idx}`}
-                      className="w-full h-full object-cover grayscale brightness-90"
+                      aspectRatioClassName="aspect-3/4"
                     />
                   </button>
                 ))}
@@ -177,7 +192,10 @@ export default function ProductPage({ params }: ProductPageProps) {
                 <div className="space-y-3 pt-4">
                   <div className="flex justify-between items-center text-[10px] font-bold tracking-widest text-text-secondary uppercase">
                     <span>SELECT SIZE</span>
-                    <button className="underline hover:text-white transition-colors">
+                    <button
+                      onClick={() => setSizeMatrixOpen(true)}
+                      className="underline hover:text-white transition-colors"
+                    >
                       Size Matrix
                     </button>
                   </div>
@@ -211,11 +229,11 @@ export default function ProductPage({ params }: ProductPageProps) {
                 {/* Add to Cart & Wishlist Actions */}
                 <div className="flex gap-4 pt-6">
                   <button
-                    onClick={handleAddToBag}
+                    onClick={handleOrderWhatsApp}
                     className="flex-1 py-4 bg-white text-black font-display font-bold uppercase tracking-widest text-xs hover:bg-neutral-200 transition-colors flex items-center justify-center gap-3"
                   >
                     <ShoppingBag size={14} />
-                    ADD TO BAG
+                    ORDER ON WHATSAPP
                   </button>
 
                   <button

@@ -1,0 +1,41 @@
+{
+  "whatsapp": {
+    "phoneNumber": "27820000000",
+    "prefilledTextProduct": "Hi Solace, I would like to order the {productName} in size {size} (${price}). Link: {productUrl}",
+    "prefilledTextCart": "Hi Solace, I would like to order the following items from my cart:\n{cartItems}\nTotal: ${total}",
+    "prefilledTextWishlist": "Hi Solace, I want to inquire about these wishlist items:\n{wishlistItems}",
+    "chatWidgetWelcome": "Atelier Assistant is online... How can we help you with sizes or custom drops today?"
+  },
+  "instagram": {
+    "username": "solace.atelier",
+    "posts": [
+      {
+        "id": "ig-1",
+        "imageUrl": "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&q=80&w=800",
+        "likes": 1242,
+        "caption": "Winter Archival Drop 01. Styled with the SOLACE Gothic Cross Hoodie.",
+        "taggedProductSlug": "solace-cross-gothic-hoodie",
+        "x": 50,
+        "y": 45
+      },
+      {
+        "id": "ig-2",
+        "imageUrl": "https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&q=80&w=800",
+        "likes": 845,
+        "caption": "Signature looks on city nights. SOLACE Graphic Hoodie.",
+        "taggedProductSlug": "solace-signature-graphic-hoodie",
+        "x": 50,
+        "y": 35
+      },
+      {
+        "id": "ig-3",
+        "imageUrl": "https://images.unsplash.com/photo-1552374196-1ab2a1c593e8?auto=format&fit=crop&q=80&w=800",
+        "likes": 1902,
+        "caption": "Re-styled clogs with heavy hardware.",
+        "taggedProductSlug": "solace-streetwear-crocs-custom",
+        "x": 50,
+        "y": 75
+      }
+    ]
+  }
+}

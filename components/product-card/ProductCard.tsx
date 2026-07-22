@@ -6,16 +6,33 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Heart } from 'lucide-react';
 import { Product } from '@/types';
 import { useStore } from '@/hooks/use-cart-store';
+import ProductImage from '@/components/product-image/ProductImage';
+import configData from '@/data/config.json';
 
 interface ProductCardProps {
   product: Product;
 }
 
 export default function ProductCard({ product }: ProductCardProps) {
-  const { addToCart, toggleWishlist, wishlist } = useStore();
+  const { toggleWishlist, wishlist } = useStore();
   const [isHovered, setIsHovered] = useState(false);
 
   const isWishlisted = wishlist.some((item) => item.id === product.id);
+
+  const handleQuickWhatsApp = (e: React.MouseEvent, size: string) => {
+    e.preventDefault();
+    e.stopPropagation();
+    
+    const defaultPhone = configData.whatsapp.phoneNumber;
+    const itemUrl = `${window.location.origin}/product/${product.slug}`;
+    const text = configData.whatsapp.prefilledTextProduct
+      .replace('{productName}', product.name)
+      .replace('{size}', size)
+      .replace('{price}', product.price.toString())
+      .replace('{productUrl}', itemUrl);
+
+    window.open(`https://wa.me/${defaultPhone}?text=${encodeURIComponent(text)}`, '_blank');
+  };
 
   return (
     <motion.div
@@ -60,12 +77,10 @@ export default function ProductCard({ product }: ProductCardProps) {
 
         {/* Link wraps image for routing */}
         <Link href={`/product/${product.slug}`} className="block w-full h-full">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
+          <ProductImage
             src={product.images[0]}
             alt={product.name}
-            className="w-full h-full object-cover transition-transform duration-1000 ease-out group-hover:scale-105"
-            loading="lazy"
+            className="transition-transform duration-1000 ease-out group-hover:scale-105"
           />
         </Link>
 
@@ -86,11 +101,7 @@ export default function ProductCard({ product }: ProductCardProps) {
                 {product.sizes.map((size) => (
                   <button
                     key={size}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      e.stopPropagation();
-                      addToCart(product, size, 1);
-                    }}
+                    onClick={(e) => handleQuickWhatsApp(e, size)}
                     className="px-3 py-1.5 border border-border-custom bg-black text-white hover:bg-white hover:text-black hover:border-white transition-all text-[10px] font-mono font-bold"
                   >
                     {size}

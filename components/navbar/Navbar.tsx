@@ -6,6 +6,7 @@ import { usePathname } from 'next/navigation';
 import { useStore } from '@/hooks/use-cart-store';
 import { Search, User, Heart, ShoppingBag, Menu, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import Logo from '@/components/logo/Logo';
 
 export default function Navbar() {
   const pathname = usePathname();
@@ -102,9 +103,7 @@ export default function Navbar() {
 
           {/* Center Brand Wordmark */}
           <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
-            <Link href="/" className="font-display font-black text-2xl md:text-3xl tracking-[0.3em] text-white select-none hover:opacity-85 transition-opacity">
-              SOLACE
-            </Link>
+            <Logo />
           </div>
 
           {/* Right Action Icons */}
@@ -173,7 +172,7 @@ export default function Navbar() {
               transition={{ type: 'tween', duration: 0.3, ease: 'easeOut' }}
             >
               <div className="flex justify-between items-center mb-12">
-                <span className="font-display font-black text-xl tracking-[0.2em]">SOLACE</span>
+                <Logo iconOnly={true} size={28} />
                 <button
                   onClick={() => setMobileMenuOpen(false)}
                   className="text-text-secondary hover:text-white"

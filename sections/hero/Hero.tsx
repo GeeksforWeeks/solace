@@ -1,8 +1,9 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { motion, useMotionValue, useSpring } from 'framer-motion';
+import { motion, useMotionValue, useSpring, useTransform, Variants } from 'framer-motion';
 import Link from 'next/link';
+import ProductImage from '@/components/product-image/ProductImage';
 
 export default function Hero() {
   const [windowWidth, setWindowWidth] = useState(0);
@@ -24,6 +25,10 @@ export default function Hero() {
   const parallaxX = useSpring(mouseX, springConfig);
   const parallaxY = useSpring(mouseY, springConfig);
 
+  // Inverted parallax for right image (opposite direction)
+  const parallaxXInverted = useTransform(parallaxX, (v) => -v);
+  const parallaxYInverted = useTransform(parallaxY, (v) => -v);
+
   const handleMouseMove = (e: React.MouseEvent) => {
     if (windowWidth < 1024) return; // Disable parallax on smaller viewports
     const { clientX, clientY } = e;
@@ -36,7 +41,7 @@ export default function Hero() {
   };
 
   // Text Animation Variants
-  const containerVariants = {
+  const containerVariants: Variants = {
     hidden: {},
     visible: {
       transition: {
@@ -45,7 +50,7 @@ export default function Hero() {
     },
   };
 
-  const wordVariants = {
+  const wordVariants: Variants = {
     hidden: { y: '105%', rotate: 2 },
     visible: {
       y: 0,
@@ -57,7 +62,7 @@ export default function Hero() {
     },
   };
 
-  const fadeUpVariants = {
+  const fadeUpVariants: Variants = {
     hidden: { opacity: 0, y: 30 },
     visible: {
       opacity: 1,
@@ -96,11 +101,11 @@ export default function Hero() {
             transition={{ duration: 2, ease: [0.25, 1, 0.5, 1] }}
             className="w-full h-full"
           >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
+            <ProductImage
               src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&q=80&w=1200"
               alt="Solace editorial streetwear model pose"
-              className="w-full h-full object-cover grayscale brightness-75"
+              aspectRatioClassName="h-full w-full"
+              className="grayscale brightness-75"
             />
           </motion.div>
         </div>
@@ -115,19 +120,19 @@ export default function Hero() {
           />
           <motion.div
             style={{
-              x: motionValueMultiply(parallaxX, -1), // Move opposite to left image
-              y: motionValueMultiply(parallaxY, -1),
+              x: parallaxXInverted,
+              y: parallaxYInverted,
               scale: 1.08,
             }}
             animate={{ scale: 1 }}
             transition={{ duration: 2, ease: [0.25, 1, 0.5, 1] }}
             className="w-full h-full"
           >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
+            <ProductImage
               src="https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&q=80&w=1200"
               alt="Solace outerwear detail photo"
-              className="w-full h-full object-cover grayscale brightness-75"
+              aspectRatioClassName="h-full w-full"
+              className="grayscale brightness-75"
             />
           </motion.div>
         </div>
@@ -189,15 +194,4 @@ export default function Hero() {
       </div>
     </section>
   );
-}
-
-// Simple helper to multiply spring motions for opposing direction parallax
-function motionValueMultiply(mv: any, factor: number) {
-  const [val, setVal] = useState(mv.get());
-  useEffect(() => {
-    return mv.on('change', (latest: number) => {
-      setVal(latest * factor);
-    });
-  }, [mv, factor]);
-  return val;
 }

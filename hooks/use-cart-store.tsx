@@ -13,6 +13,7 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
   const [isSearchOpen, setSearchOpen] = useState(false);
   const [isAccountOpen, setAccountOpen] = useState(false);
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [isSizeMatrixOpen, setSizeMatrixOpen] = useState(false);
 
   // Hydrate from localStorage on initial load
   useEffect(() => {
@@ -112,6 +113,7 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
         isSearchOpen,
         isAccountOpen,
         isMobileMenuOpen,
+        isSizeMatrixOpen,
         addToCart,
         removeFromCart,
         updateQuantity,
@@ -121,6 +123,7 @@ export function StoreProvider({ children }: { children: React.ReactNode }) {
         setSearchOpen,
         setAccountOpen,
         setMobileMenuOpen,
+        setSizeMatrixOpen,
         clearCart,
       }}
     >

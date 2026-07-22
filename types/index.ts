@@ -29,6 +29,7 @@ export interface StoreState {
   isSearchOpen: boolean;
   isAccountOpen: boolean;
   isMobileMenuOpen: boolean;
+  isSizeMatrixOpen: boolean;
   addToCart: (product: Product, size: string, quantity?: number) => void;
   removeFromCart: (productId: string, size: string) => void;
   updateQuantity: (productId: string, size: string, quantity: number) => void;
@@ -38,5 +39,6 @@ export interface StoreState {
   setSearchOpen: (open: boolean) => void;
   setAccountOpen: (open: boolean) => void;
   setMobileMenuOpen: (open: boolean) => void;
+  setSizeMatrixOpen: (open: boolean) => void;
   clearCart: () => void;
 }

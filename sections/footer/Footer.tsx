@@ -2,6 +2,8 @@
 
 import React from 'react';
 import Link from 'next/link';
+import Logo from '@/components/logo/Logo';
+import configData from '@/data/config.json';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -15,8 +17,10 @@ export default function Footer() {
     { name: 'Atelier Contact', path: '#contact' },
   ];
 
+  const whatsappUrl = `https://wa.me/${configData.whatsapp.phoneNumber}?text=${encodeURIComponent("Hi Solace Concierge! I have a support inquiry.")}`;
+
   const linksSupport = [
-    { name: 'Customer Care', path: '#' },
+    { name: 'Customer Care', path: whatsappUrl },
     { name: 'Sizing Matrix', path: '#' },
     { name: 'Returns & Exchange', path: '#' },
     { name: 'Global Shipping', path: '#' },
@@ -37,11 +41,9 @@ export default function Footer() {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-12 md:gap-8">
           
           {/* Column 1: Brand & Slogan */}
-          <div className="col-span-2 md:col-span-1 space-y-6">
-            <h3 className="font-display font-black text-2xl tracking-[0.3em] uppercase">
-              SOLACE
-            </h3>
-            <p className="text-text-secondary text-xs uppercase tracking-widest leading-relaxed max-w-[200px]">
+          <div className="col-span-2 md:col-span-1 space-y-4">
+            <Logo iconOnly={false} size={28} />
+            <p className="text-text-secondary text-[10px] uppercase tracking-widest leading-relaxed max-w-[200px] mt-2">
               {brandSlogan}
             </p>
           </div>

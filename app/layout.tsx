@@ -6,6 +6,8 @@ import LenisProvider from '@/components/lenis-provider/LenisProvider';
 import CustomCursor from '@/components/cursor/CustomCursor';
 import Navbar from '@/components/navbar/Navbar';
 import Drawers from '@/components/drawers/Drawers';
+import SizeMatrixModal from '@/components/modals/SizeMatrixModal';
+import WhatsappConcierge from '@/components/whatsapp/WhatsappConcierge';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -61,6 +63,8 @@ export default function RootLayout({
             <Navbar />
             <main>{children}</main>
             <Drawers />
+            <SizeMatrixModal />
+            <WhatsappConcierge />
           </LenisProvider>
         </StoreProvider>
       </body>

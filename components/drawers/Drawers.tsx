@@ -7,8 +7,11 @@ import { X, Trash2, Plus, Minus, Heart, ShoppingBag, ArrowRight, Search as Searc
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
-import productsData from '@/data/products.json';
 import Link from 'next/link';
+import ProductImage from '@/components/product-image/ProductImage';
+import configData from '@/data/config.json';
+import { useProducts } from '@/hooks/use-products';
+import { Product } from '@/types';
 
 // Zod Login Schema
 const loginSchema = z.object({
@@ -34,25 +37,28 @@ export default function Drawers() {
     updateQuantity,
     addToCart,
     toggleWishlist,
+    clearCart,
   } = useStore();
+
+  const { products } = useProducts();
 
   // Search local state
   const [searchQuery, setSearchQuery] = useState('');
-  const [searchResults, setSearchResults] = useState(productsData);
+  const [searchResults, setSearchResults] = useState<Product[]>([]);
 
   // Sync search query to filter products
   useEffect(() => {
     if (searchQuery.trim() === '') {
-      setSearchResults(productsData);
+      setSearchResults(products);
     } else {
-      const filtered = productsData.filter(
+      const filtered = products.filter(
         (p) =>
           p.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
           p.category.toLowerCase().includes(searchQuery.toLowerCase())
       );
       setSearchResults(filtered);
     }
-  }, [searchQuery]);
+  }, [searchQuery, products]);
 
   // Account local login mock state
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -80,6 +86,28 @@ export default function Drawers() {
 
   // Cart math
   const cartSubtotal = cart.reduce((total, item) => total + item.product.price * item.quantity, 0);
+
+  const handleCartCheckout = () => {
+    const defaultPhone = configData.whatsapp.phoneNumber;
+    const cartItemsText = cart.map(item => `- ${item.quantity}x ${item.product.name} (Size: ${item.selectedSize}) - $${(item.product.price * item.quantity).toFixed(2)}`).join('\n');
+    const text = configData.whatsapp.prefilledTextCart
+      .replace('{cartItems}', cartItemsText)
+      .replace('{total}', cartSubtotal.toFixed(2));
+      
+    window.open(`https://wa.me/${defaultPhone}?text=${encodeURIComponent(text)}`, '_blank');
+    clearCart();
+    setCartOpen(false);
+  };
+
+  const handleWishlistInquire = () => {
+    const defaultPhone = configData.whatsapp.phoneNumber;
+    const wishlistItemsText = wishlist.map(item => `- ${item.name} ($${item.price})`).join('\n');
+    const text = configData.whatsapp.prefilledTextWishlist
+      .replace('{wishlistItems}', wishlistItemsText);
+      
+    window.open(`https://wa.me/${defaultPhone}?text=${encodeURIComponent(text)}`, '_blank');
+    setWishlistOpen(false);
+  };
 
   // Common Backdrops & Containers
   const backdropVariants = {
@@ -156,12 +184,11 @@ export default function Drawers() {
                       key={`${item.product.id}-${item.selectedSize}-${idx}`}
                       className="flex gap-4 border-b border-border-custom pb-6 last:border-0"
                     >
-                      <div className="relative w-20 h-24 bg-neutral-900 border border-border-custom overflow-hidden shrink-0">
-                        {/* eslint-disable-next-line @next/next/no-img-element */}
-                        <img
+                      <div className="relative w-20 h-24 overflow-hidden shrink-0">
+                        <ProductImage
                           src={item.product.images[0]}
                           alt={item.product.name}
-                          className="w-full h-full object-cover"
+                          aspectRatioClassName="aspect-[5/6]"
                         />
                       </div>
                       <div className="flex-1 flex flex-col justify-between">
@@ -193,7 +220,7 @@ export default function Drawers() {
                             </button>
                             <span className="px-3 text-xs font-mono">{item.quantity}</span>
                             <button
-                              onClick={() => addToCart(item.product.id as any, item.selectedSize, 1)}
+                              onClick={() => addToCart(item.product, item.selectedSize, 1)}
                               className="px-2 py-1 text-text-secondary hover:text-white transition-colors hover:bg-neutral-900"
                             >
                               <Plus size={12} />
@@ -217,10 +244,13 @@ export default function Drawers() {
                     <span className="font-mono">${cartSubtotal.toFixed(2)}</span>
                   </div>
                   <p className="text-[10px] text-text-secondary uppercase tracking-wider">
-                    Shipping & taxes calculated at checkout.
+                    Garments will be customized and confirmed via WhatsApp.
                   </p>
-                  <button className="w-full py-4 bg-white text-black font-display font-bold uppercase tracking-widest text-xs hover:bg-neutral-200 transition-colors flex items-center justify-center gap-3">
-                    Proceed to Checkout
+                  <button
+                    onClick={handleCartCheckout}
+                    className="w-full py-4 bg-white text-black font-display font-bold uppercase tracking-widest text-xs hover:bg-neutral-200 transition-colors flex items-center justify-center gap-3"
+                  >
+                    Send Order via WhatsApp
                     <ArrowRight size={14} />
                   </button>
                 </div>
@@ -276,12 +306,11 @@ export default function Drawers() {
                 ) : (
                   wishlist.map((product) => (
                     <div key={product.id} className="flex gap-4 border-b border-border-custom pb-6 last:border-0">
-                      <div className="relative w-20 h-24 bg-neutral-900 border border-border-custom overflow-hidden shrink-0">
-                        {/* eslint-disable-next-line @next/next/no-img-element */}
-                        <img
+                      <div className="relative w-20 h-24 overflow-hidden shrink-0">
+                        <ProductImage
                           src={product.images[0]}
                           alt={product.name}
-                          className="w-full h-full object-cover"
+                          aspectRatioClassName="aspect-[5/6]"
                         />
                       </div>
                       <div className="flex-1 flex flex-col justify-between">
@@ -313,6 +342,22 @@ export default function Drawers() {
                   ))
                 )}
               </div>
+
+              {/* Wishlist Drawer Footer */}
+              {wishlist.length > 0 && (
+                <div className="p-6 border-t border-border-custom bg-black/60 space-y-4">
+                  <p className="text-[10px] text-text-secondary uppercase tracking-wider">
+                    Inquire about the availability of all your wishlisted items.
+                  </p>
+                  <button
+                    onClick={handleWishlistInquire}
+                    className="w-full py-4 bg-white text-black font-display font-bold uppercase tracking-widest text-xs hover:bg-neutral-200 transition-colors flex items-center justify-center gap-3"
+                  >
+                    Inquire via WhatsApp
+                    <ArrowRight size={14} />
+                  </button>
+                </div>
+              )}
             </motion.div>
           </div>
         )}

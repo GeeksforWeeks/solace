@@ -1,14 +1,16 @@
 'use client';
 
-import React, { useState, useEffect, Suspense } from 'react';
+import React, { useState, Suspense } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import ProductCard from '@/components/product-card/ProductCard';
-import productsData from '@/data/products.json';
 import Footer from '@/sections/footer/Footer';
+import { useProducts } from '@/hooks/use-products';
 
 function CatalogContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
+  
+  const { products, loading } = useProducts();
 
   // Filters State
   const categoryParam = searchParams.get('category') || 'All';
@@ -16,8 +18,16 @@ function CatalogContent() {
 
   const categories = ['All', 'Outerwear', 'Footwear', 'Accessories'];
 
+  if (loading) {
+    return (
+      <div className="min-h-[60vh] bg-black flex items-center justify-center text-white font-display text-xs tracking-widest uppercase">
+        LOADING COLLECTION DROPS...
+      </div>
+    );
+  }
+
   // Filtering & Sorting Logic
-  const filteredProducts = productsData.filter((product) => {
+  const filteredProducts = products.filter((product) => {
     if (categoryParam === 'All') return true;
     return product.category.toLowerCase() === categoryParam.toLowerCase();
   });
