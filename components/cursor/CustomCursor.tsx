@@ -111,7 +111,7 @@ export default function CustomCursor() {
 
   return (
     <motion.div
-      className="fixed top-0 left-0 pointer-events-none z-[9999] flex items-center justify-center text-[10px] font-bold tracking-widest uppercase select-none mix-blend-difference hidden lg:flex"
+      className="fixed top-0 left-0 pointer-events-none z-9999 flex items-center justify-center text-[10px] font-bold tracking-widest uppercase select-none mix-blend-difference lg:flex"
       style={{
         x: cursorXSpring,
         y: cursorYSpring,

@@ -1,8 +1,8 @@
 {
   "whatsapp": {
     "phoneNumber": "27820000000",
-    "prefilledTextProduct": "Hi Solace, I would like to order the {productName} in size {size} (${price}). Link: {productUrl}",
-    "prefilledTextCart": "Hi Solace, I would like to order the following items from my cart:\n{cartItems}\nTotal: ${total}",
+    "prefilledTextProduct": "Hi Solace, I would like to order the {productName} in size {size} (P{price}). Link: {productUrl}",
+    "prefilledTextCart": "Hi Solace, I would like to order the following items from my cart:\n{cartItems}\nTotal: P{total}",
     "prefilledTextWishlist": "Hi Solace, I want to inquire about these wishlist items:\n{wishlistItems}",
     "chatWidgetWelcome": "Atelier Assistant is online... How can we help you with sizes or custom drops today?"
   },

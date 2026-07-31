@@ -89,7 +89,7 @@ export default function Drawers() {
 
   const handleCartCheckout = () => {
     const defaultPhone = configData.whatsapp.phoneNumber;
-    const cartItemsText = cart.map(item => `- ${item.quantity}x ${item.product.name} (Size: ${item.selectedSize}) - $${(item.product.price * item.quantity).toFixed(2)}`).join('\n');
+    const cartItemsText = cart.map(item => `- ${item.quantity}x ${item.product.name} (Size: ${item.selectedSize}) - P${(item.product.price * item.quantity).toFixed(2)}`).join('\n');
     const text = configData.whatsapp.prefilledTextCart
       .replace('{cartItems}', cartItemsText)
       .replace('{total}', cartSubtotal.toFixed(2));
@@ -101,7 +101,7 @@ export default function Drawers() {
 
   const handleWishlistInquire = () => {
     const defaultPhone = configData.whatsapp.phoneNumber;
-    const wishlistItemsText = wishlist.map(item => `- ${item.name} ($${item.price})`).join('\n');
+    const wishlistItemsText = wishlist.map(item => `- ${item.name} (P${item.price.toFixed(2)})`).join('\n');
     const text = configData.whatsapp.prefilledTextWishlist
       .replace('{wishlistItems}', wishlistItemsText);
       
@@ -227,7 +227,7 @@ export default function Drawers() {
                             </button>
                           </div>
                           <span className="font-mono text-xs font-semibold">
-                            ${(item.product.price * item.quantity).toFixed(2)}
+                            P{(item.product.price * item.quantity).toFixed(2)}
                           </span>
                         </div>
                       </div>
@@ -241,7 +241,7 @@ export default function Drawers() {
                 <div className="p-6 border-t border-border-custom bg-black/60 space-y-4">
                   <div className="flex justify-between items-center text-sm font-semibold uppercase tracking-wider">
                     <span>Subtotal</span>
-                    <span className="font-mono">${cartSubtotal.toFixed(2)}</span>
+                    <span className="font-mono">P{cartSubtotal.toFixed(2)}</span>
                   </div>
                   <p className="text-[10px] text-text-secondary uppercase tracking-wider">
                     Garments will be customized and confirmed via WhatsApp.
@@ -327,7 +327,7 @@ export default function Drawers() {
                               <X size={14} />
                             </button>
                           </div>
-                          <span className="text-xs font-mono font-semibold block mt-1">${product.price}</span>
+                          <span className="text-xs font-mono font-semibold block mt-1">P{product.price}</span>
                         </div>
                         <button
                           onClick={() => {
@@ -451,7 +451,7 @@ export default function Drawers() {
                           <h4 className="font-display font-bold text-xs tracking-wider uppercase mt-1">
                             {product.name}
                           </h4>
-                          <span className="font-mono text-xs mt-1 font-semibold">${product.price}</span>
+                          <span className="font-mono text-xs mt-1 font-semibold">P{product.price}</span>
                         </div>
                       ))}
                     </div>
@@ -512,7 +512,7 @@ export default function Drawers() {
                         </div>
                         <div className="flex justify-between text-xs font-semibold">
                           <span>1x SOLACE CROSS HOODIE (L)</span>
-                          <span>$280.00</span>
+                          <span>P280.00</span>
                         </div>
                       </div>
                     </div>

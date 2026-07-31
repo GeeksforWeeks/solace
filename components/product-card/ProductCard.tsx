@@ -131,15 +131,15 @@ export default function ProductCard({ product }: ProductCardProps) {
           {product.oldPrice ? (
             <>
               <span className="text-[11px] font-mono text-text-secondary line-through font-medium">
-                ${product.oldPrice}
+                P{product.oldPrice}
               </span>
               <span className="text-[12px] font-mono font-bold text-white">
-                ${product.price}
+                P{product.price}
               </span>
             </>
           ) : (
             <span className="text-[12px] font-mono font-bold text-white">
-              ${product.price}
+              P{product.price}
             </span>
           )}
         </div>

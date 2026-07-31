@@ -164,7 +164,7 @@ export default function InstagramLookbook() {
                               {product.name}
                             </span>
                             <span className="text-[10px] font-mono text-white block mt-1 font-semibold">
-                              ${product.price}
+                              P{product.price}
                             </span>
                             <div className="mt-2.5 pt-2 border-t border-border-custom/50 flex justify-between items-center text-[8px] font-bold text-white uppercase tracking-widest">
                               <span>Details</span>
@@ -224,7 +224,7 @@ export default function InstagramLookbook() {
                               {product.name}
                             </h4>
                           </div>
-                          <span className="font-mono text-xs font-semibold">${product.price}</span>
+                          <span className="font-mono text-xs font-semibold">P{product.price}</span>
                         </div>
 
                         {/* eslint-disable-next-line @next/next/no-img-element */}

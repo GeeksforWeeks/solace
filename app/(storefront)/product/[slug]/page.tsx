@@ -1,31 +1,39 @@
-'use client';
+"use client";
 
-import React, { use, useState, useEffect } from 'react';
-import { useStore } from '@/hooks/use-cart-store';
-import ProductCard from '@/components/product-card/ProductCard';
-import Footer from '@/sections/footer/Footer';
-import { Heart, ShoppingBag, Truck, RefreshCw, Shield, AlertTriangle } from 'lucide-react';
-import Link from 'next/link';
-import { useProducts } from '@/hooks/use-products';
-import ProductImage from '@/components/product-image/ProductImage';
-import configData from '@/data/config.json';
+import React, { use, useState, useEffect } from "react";
+import { useStore } from "@/hooks/use-cart-store";
+import ProductCard from "@/components/product-card/ProductCard";
+import Footer from "@/sections/footer/Footer";
+import {
+  Heart,
+  ShoppingBag,
+  Truck,
+  RefreshCw,
+  Shield,
+  AlertTriangle,
+} from "lucide-react";
+import Link from "next/link";
+import { useProducts } from "@/hooks/use-products";
+import ProductImage from "@/components/product-image/ProductImage";
+import configData from "@/data/config.json";
 
 interface ProductPageProps {
   params: Promise<{ slug: string }>;
 }
 
 export default function ProductPage({ params }: ProductPageProps) {
-  // Unwrap the Next.js 15 async params promise
   const { slug } = use(params);
 
   const { products, loading } = useProducts();
   const product = products.find((p) => p.slug === slug);
 
   // State
-  const [activeImage, setActiveImage] = useState('');
-  const [selectedSize, setSelectedSize] = useState('');
+  const [activeImage, setActiveImage] = useState("");
+  const [selectedSize, setSelectedSize] = useState("");
   const [showSizeError, setShowSizeError] = useState(false);
-  const [activeTab, setActiveTab] = useState<'desc' | 'materials' | 'shipping'>('desc');
+  const [activeTab, setActiveTab] = useState<"desc" | "materials" | "shipping">(
+    "desc",
+  );
 
   const { toggleWishlist, wishlist, setSizeMatrixOpen } = useStore();
 
@@ -33,7 +41,7 @@ export default function ProductPage({ params }: ProductPageProps) {
   useEffect(() => {
     if (product) {
       setActiveImage(product.images[0]);
-      setSelectedSize('');
+      setSelectedSize("");
       setShowSizeError(false);
     }
   }, [product]);
@@ -77,16 +85,19 @@ export default function ProductPage({ params }: ProductPageProps) {
       return;
     }
     setShowSizeError(false);
-    
+
     const defaultPhone = configData.whatsapp.phoneNumber;
     const itemUrl = window.location.href;
     const text = configData.whatsapp.prefilledTextProduct
-      .replace('{productName}', product.name)
-      .replace('{size}', selectedSize)
-      .replace('{price}', product.price.toString())
-      .replace('{productUrl}', itemUrl);
+      .replace("{productName}", product.name)
+      .replace("{size}", selectedSize)
+      .replace("{price}", product.price.toString())
+      .replace("{productUrl}", itemUrl);
 
-    window.open(`https://wa.me/${defaultPhone}?text=${encodeURIComponent(text)}`, '_blank');
+    window.open(
+      `https://wa.me/${defaultPhone}?text=${encodeURIComponent(text)}`,
+      "_blank",
+    );
   };
 
   // Recommendations: Other products
@@ -101,18 +112,18 @@ export default function ProductPage({ params }: ProductPageProps) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify({
-            '@context': 'https://schema.org',
-            '@type': 'Product',
+            "@context": "https://schema.org",
+            "@type": "Product",
             name: product.name,
             image: product.images,
             description: product.description,
             category: product.category,
             offers: {
-              '@type': 'Offer',
-              priceCurrency: 'USD',
+              "@type": "Offer",
+              priceCurrency: "USD",
               price: product.price,
-              itemCondition: 'https://schema.org/NewCondition',
-              availability: 'https://schema.org/InStock',
+              itemCondition: "https://schema.org/NewCondition",
+              availability: "https://schema.org/InStock",
               url: `https://solace.luxury/product/${product.slug}`,
             },
           }),
@@ -121,7 +132,6 @@ export default function ProductPage({ params }: ProductPageProps) {
       <div>
         <div className="max-w-7xl mx-auto px-6 md:px-12 pt-36 pb-24">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
-            
             {/* Left Side: Photo Gallery (Columns: 7/12) */}
             <div className="lg:col-span-7 space-y-4">
               <ProductImage
@@ -138,8 +148,8 @@ export default function ProductPage({ params }: ProductPageProps) {
                     onClick={() => setActiveImage(img)}
                     className={`relative aspect-3/4 bg-neutral-950 border overflow-hidden hover:opacity-90 transition-all duration-300 ${
                       (activeImage || product.images[0]) === img
-                        ? 'border-white'
-                        : 'border-border-custom'
+                        ? "border-white"
+                        : "border-border-custom"
                     }`}
                   >
                     <ProductImage
@@ -169,15 +179,15 @@ export default function ProductPage({ params }: ProductPageProps) {
                   {product.oldPrice ? (
                     <>
                       <span className="text-sm font-mono text-text-secondary line-through">
-                        ${product.oldPrice}
+                        P{product.oldPrice}
                       </span>
                       <span className="text-lg font-mono font-bold text-white">
-                        ${product.price}
+                        P{product.price}
                       </span>
                     </>
                   ) : (
                     <span className="text-lg font-mono font-bold text-white">
-                      ${product.price}
+                      P{product.price}
                     </span>
                   )}
                 </div>
@@ -199,7 +209,7 @@ export default function ProductPage({ params }: ProductPageProps) {
                       Size Matrix
                     </button>
                   </div>
-                  
+
                   <div className="flex gap-2 flex-wrap">
                     {product.sizes.map((size) => (
                       <button
@@ -210,8 +220,8 @@ export default function ProductPage({ params }: ProductPageProps) {
                         }}
                         className={`px-4 py-2 text-xs font-mono font-bold border transition-all duration-300 ${
                           selectedSize === size
-                            ? 'bg-white text-black border-white'
-                            : 'bg-black text-white border-border-custom hover:border-white'
+                            ? "bg-white text-black border-white"
+                            : "bg-black text-white border-border-custom hover:border-white"
                         }`}
                       >
                         {size}
@@ -241,7 +251,11 @@ export default function ProductPage({ params }: ProductPageProps) {
                     className="p-4 border border-border-custom hover:border-white text-white hover:bg-neutral-900 transition-colors"
                     aria-label="Add to wishlist"
                   >
-                    <Heart size={16} fill={isWishlisted ? '#FFFFFF' : 'none'} className="transition-all duration-300" />
+                    <Heart
+                      size={16}
+                      fill={isWishlisted ? "#FFFFFF" : "none"}
+                      className="transition-all duration-300"
+                    />
                   </button>
                 </div>
               </div>
@@ -249,63 +263,80 @@ export default function ProductPage({ params }: ProductPageProps) {
               {/* Informational Tabs Accordion */}
               <div className="border-t border-border-custom pt-6">
                 <div className="flex border-b border-border-custom text-[10px] font-bold tracking-widest uppercase">
-                  {(['desc', 'materials', 'shipping'] as const).map((tab) => (
+                  {(["desc", "materials", "shipping"] as const).map((tab) => (
                     <button
                       key={tab}
                       onClick={() => setActiveTab(tab)}
                       className={`flex-1 py-3 text-center border-b transition-colors ${
                         activeTab === tab
-                          ? 'border-white text-white'
-                          : 'border-transparent text-text-secondary hover:text-white'
+                          ? "border-white text-white"
+                          : "border-transparent text-text-secondary hover:text-white"
                       }`}
                     >
-                      {tab === 'desc' ? 'SPECIFICATIONS' : tab === 'materials' ? 'ORIGINS' : 'SHIPPING'}
+                      {tab === "desc"
+                        ? "SPECIFICATIONS"
+                        : tab === "materials"
+                          ? "ORIGINS"
+                          : "SHIPPING"}
                     </button>
                   ))}
                 </div>
 
                 <div className="py-4 text-xs text-text-secondary leading-relaxed uppercase tracking-wider">
-                  {activeTab === 'desc' && (
+                  {activeTab === "desc" && (
                     <ul className="space-y-1.5 list-disc list-inside">
                       {product.details.map((detail, idx) => (
-                        <li key={idx} className="text-[11px]">{detail}</li>
+                        <li key={idx} className="text-[11px]">
+                          {detail}
+                        </li>
                       ))}
                     </ul>
                   )}
-                  {activeTab === 'materials' && (
+                  {activeTab === "materials" && (
                     <div className="space-y-2">
                       <p className="text-[11px]">MATERIALS USED:</p>
                       <div className="flex flex-wrap gap-1.5 mt-1">
                         {product.materials.map((mat, i) => (
-                          <span key={i} className="px-2.5 py-1 bg-neutral-900 text-[10px] text-white border border-border-custom">
+                          <span
+                            key={i}
+                            className="px-2.5 py-1 bg-neutral-900 text-[10px] text-white border border-border-custom"
+                          >
                             {mat}
                           </span>
                         ))}
                       </div>
                       <p className="text-[10px] text-text-secondary lowercase mt-2">
-                        Designed at SOLACE atelier. Hand-finished and dyed for a vintage silhouette.
+                        Designed at SOLACE atelier. Hand-finished and dyed for a
+                        vintage silhouette.
                       </p>
                     </div>
                   )}
-                  {activeTab === 'shipping' && (
+                  {activeTab === "shipping" && (
                     <div className="space-y-4">
                       <div className="flex gap-3 items-start">
                         <Truck size={14} className="shrink-0 mt-0.5" />
-                        <p className="text-[11px]">Free express dispatch globally on orders over $300. Standard courier rates apply.</p>
+                        <p className="text-[11px]">
+                          Free express dispatch globally on orders over $300.
+                          Standard courier rates apply.
+                        </p>
                       </div>
                       <div className="flex gap-3 items-start">
                         <RefreshCw size={14} className="shrink-0 mt-0.5" />
-                        <p className="text-[11px]">Archived limited releases are eligible for custom size returns within 14 days.</p>
+                        <p className="text-[11px]">
+                          Archived limited releases are eligible for custom size
+                          returns within 14 days.
+                        </p>
                       </div>
                       <div className="flex gap-3 items-start">
                         <Shield size={14} className="shrink-0 mt-0.5" />
-                        <p className="text-[11px]">Ships in heavy organic Solace signature packaging.</p>
+                        <p className="text-[11px]">
+                          Ships in heavy organic Solace signature packaging.
+                        </p>
                       </div>
                     </div>
                   )}
                 </div>
               </div>
-
             </div>
           </div>
 
@@ -320,7 +351,6 @@ export default function ProductPage({ params }: ProductPageProps) {
               ))}
             </div>
           </div>
-
         </div>
       </div>
       <Footer />
