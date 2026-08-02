@@ -95,7 +95,7 @@ export default function WhatsappConcierge() {
                 </div>
                 <div className="flex flex-col">
                   <span className="text-[11px] font-bold text-white tracking-wide uppercase">SOLACE CONCIERGE</span>
-                  <span className="text-[8px] font-mono text-emerald-400 tracking-widest uppercase">ATELIER DIRECT</span>
+                  <span className="text-[8px] font-mono text-emerald-400 tracking-widest uppercase"> DIRECT</span>
                 </div>
               </div>
               <button

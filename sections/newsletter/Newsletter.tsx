@@ -38,7 +38,7 @@ export default function Newsletter() {
             PRIVATE ACCESS
           </span>
           <h2 className="font-display font-black text-3xl md:text-5xl uppercase tracking-tighter text-white">
-            JOIN THE ATELIER
+            JOIN THE SOLACE 
           </h2>
           <p className="text-text-secondary text-xs md:text-sm uppercase tracking-wider max-w-lg mx-auto leading-relaxed">
             Register to receive priority drop announcements, limited release keys, and archival collection insights.

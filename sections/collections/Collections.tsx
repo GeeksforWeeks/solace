@@ -1,39 +1,86 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import ProductImage from '@/components/product-image/ProductImage';
+import { useProducts } from '@/hooks/use-products';
+
+const collectionDescriptions: Record<string, string> = {
+  Outerwear: 'Premium Layering & Shells',
+  Footwear: 'Technical & Statement Pieces',
+  Accessories: 'Curated Details & Finishing',
+};
 
 export default function Collections() {
   const [hoveredIdx, setHoveredIdx] = useState<number | null>(null);
+  const { products, loading } = useProducts();
 
-  const collections = [
-    {
-      title: 'CHROME ARCHIVES',
-      subtitle: 'Premium Outerwear',
-      image: 'https://images.unsplash.com/photo-1556821840-3a63f95609a7?auto=format&fit=crop&q=80&w=1200',
-      link: '/catalog?category=Outerwear',
-    },
-    {
-      title: 'TECHNICAL RUNNERS',
-      subtitle: 'Bespoke Footwear',
-      image: 'https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?auto=format&fit=crop&q=80&w=1200',
-      link: '/catalog?category=Footwear',
-    },
-    {
-      title: 'STREET CLOGS',
-      subtitle: 'Post-Modern Footwear',
-      image: 'https://images.unsplash.com/photo-1608256246200-53e635b5b65f?auto=format&fit=crop&q=80&w=1200',
-      link: '/catalog?category=Footwear',
-    },
-    {
-      title: 'SILVER ACCENTS',
-      subtitle: 'Antiqued Jewelry Set',
-      image: 'https://images.unsplash.com/photo-1617038260897-41a1f14a8ca0?auto=format&fit=crop&q=80&w=1200',
-      link: '/catalog?category=Accessories',
-    },
-  ];
+  // Generate collections from unique categories in products
+  const collections = useMemo(() => {
+    if (!products.length) return [];
+
+    // Get unique categories
+    const uniqueCategories = Array.from(
+      new Set(products.map(p => p.category))
+    );
+
+    // For each category, get the first product (using it as the "featured" image)
+    return uniqueCategories.map((category) => {
+      const featuredProduct = products.find(p => p.category === category);
+      
+      return {
+        title: category.toUpperCase(),
+        subtitle: collectionDescriptions[category] || 'Exclusive Collection',
+        image: featuredProduct?.images?.[0] || '',
+        link: `/catalog?category=${category}`,
+      };
+    });
+  }, [products]);
+
+  if (loading) {
+    return (
+      <section className="bg-black py-24 px-6 md:px-12 border-b border-border-custom overflow-hidden">
+        <div className="max-w-7xl mx-auto space-y-16">
+          <div className="space-y-4">
+            <span className="text-[10px] text-text-secondary uppercase tracking-[0.3em] font-semibold block">
+              VISUAL RUNWAYS
+            </span>
+            <h2 className="font-display font-black text-3xl md:text-5xl uppercase tracking-tighter text-white">
+              EXPLORE ARCHIVES
+            </h2>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {[...Array(3)].map((_, i) => (
+              <div key={i} className="aspect-4/5 bg-neutral-900 animate-pulse rounded" />
+            ))}
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  if (collections.length === 0) {
+    return (
+      <section className="bg-black py-24 px-6 md:px-12 border-b border-border-custom overflow-hidden">
+        <div className="max-w-7xl mx-auto space-y-16">
+          <div className="space-y-4">
+            <span className="text-[10px] text-text-secondary uppercase tracking-[0.3em] font-semibold block">
+              VISUAL RUNWAYS
+            </span>
+            <h2 className="font-display font-black text-3xl md:text-5xl uppercase tracking-tighter text-white">
+              EXPLORE ARCHIVES
+            </h2>
+          </div>
+          <div className="text-center py-12">
+            <p className="text-text-secondary uppercase tracking-widest text-xs">
+              No categories available yet. Add some products to get started!
+            </p>
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className="bg-black py-24 px-6 md:px-12 border-b border-border-custom overflow-hidden">
@@ -66,6 +113,7 @@ export default function Collections() {
                   alt={col.title}
                   aspectRatioClassName="aspect-4/5"
                   className="transition-transform duration-[1200ms] ease-out group-hover:scale-105"
+                  showGrayscale={false}
                 />
               </div>
 

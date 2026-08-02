@@ -55,7 +55,7 @@ function CatalogContent() {
         {/* Title Header */}
         <div className="pt-36 pb-12 border-b border-border-custom px-6 md:px-12 max-w-7xl mx-auto w-full">
           <span className="text-[10px] text-text-secondary uppercase tracking-[0.3em] font-semibold">
-            ATELIER COLLECTION
+             COLLECTION
           </span>
           <h1 className="font-display font-black text-4xl md:text-6xl uppercase tracking-tighter text-white mt-2">
             {categoryParam === 'All' ? 'ALL PRODUCTS' : `${categoryParam}`}

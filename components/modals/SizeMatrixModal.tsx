@@ -84,7 +84,7 @@ export default function SizeMatrixModal() {
           <div className="flex justify-between items-center border-b border-border-custom pb-4 mb-6">
             <span className="font-display font-semibold tracking-widest text-base uppercase flex items-center gap-2">
               <Ruler size={16} />
-              Atelier Sizing Matrix
+               Sizing Matrix
             </span>
             <button
               onClick={() => {

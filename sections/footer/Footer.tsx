@@ -14,7 +14,7 @@ export default function Footer() {
     { name: 'Home', path: '/' },
     { name: 'Catalog', path: '/catalog' },
     { name: 'Archival About', path: '#about' },
-    { name: 'Atelier Contact', path: '#contact' },
+    { name: ' Contact', path: '#contact' },
   ];
 
   const whatsappUrl = `https://wa.me/${configData.whatsapp.phoneNumber}?text=${encodeURIComponent("Hi Solace Concierge! I have a support inquiry.")}`;
@@ -30,7 +30,7 @@ export default function Footer() {
     { name: 'Instagram', path: 'https://instagram.com' },
     { name: 'Twitter / X', path: 'https://twitter.com' },
     { name: 'Pinterest', path: 'https://pinterest.com' },
-    { name: 'Atelier TikTok', path: 'https://tiktok.com' },
+    { name: ' TikTok', path: 'https://tiktok.com' },
   ];
 
   return (
@@ -70,7 +70,7 @@ export default function Footer() {
           {/* Column 3: Support */}
           <div className="space-y-4">
             <span className="text-[10px] text-text-secondary uppercase tracking-[0.25em] font-bold block border-b border-border-custom/50 pb-2">
-              ATELIER SERVICE
+               SERVICE
             </span>
             <ul className="space-y-2">
               {linksSupport.map((link) => (
@@ -115,7 +115,7 @@ export default function Footer() {
             <span>© {currentYear} SOLACE STUDIO INC.</span>
             <span className="hidden md:inline">|</span>
             <Link href="#" className="hover:text-white transition-colors">Privacy Charter</Link>
-            <Link href="#" className="hover:text-white transition-colors">Terms of Atelier</Link>
+            <Link href="#" className="hover:text-white transition-colors">Terms of </Link>
           </div>
           <div>
             <span>DESIGNED BY geeks4weeks</span>

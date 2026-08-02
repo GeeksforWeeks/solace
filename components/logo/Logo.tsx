@@ -36,7 +36,7 @@ export default function Logo({ className = '', iconOnly = false, size = 32 }: Lo
             SOLACE
           </span>
           <span className="text-[8px] font-mono tracking-[0.4em] text-neutral-500 mt-0.5 uppercase">
-            ATELIER
+            
           </span>
         </div>
       )}

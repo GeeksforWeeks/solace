@@ -306,7 +306,7 @@ export default function ProductPage({ params }: ProductPageProps) {
                         ))}
                       </div>
                       <p className="text-[10px] text-text-secondary lowercase mt-2">
-                        Designed at SOLACE atelier. Hand-finished and dyed for a
+                        Designed at SOLACE . Hand-finished and dyed for a
                         vintage silhouette.
                       </p>
                     </div>
@@ -343,7 +343,7 @@ export default function ProductPage({ params }: ProductPageProps) {
           {/* Bottom Recommendations */}
           <div className="border-t border-border-custom mt-24 pt-16">
             <h3 className="font-display font-black text-2xl uppercase tracking-tighter text-white mb-10">
-              RELATED ATELIER ITEMS
+              RELATED  ITEMS
             </h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {recommendations.map((rec) => (

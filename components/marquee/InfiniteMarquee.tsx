@@ -7,7 +7,7 @@ export default function InfiniteMarquee() {
     'NEW ARRIVAL',
     'LIMITED RELEASE',
     'SOLACE STUDIO',
-    'STREETWEAR ATELIER',
+    'STREETWEAR ',
     'EXCLUSIVE DROP',
     'WEAR QUIET',
     'LEAVE AN IMPRESSION',

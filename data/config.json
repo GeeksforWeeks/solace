@@ -4,10 +4,10 @@
     "prefilledTextProduct": "Hi Solace, I would like to order the {productName} in size {size} (P{price}). Link: {productUrl}",
     "prefilledTextCart": "Hi Solace, I would like to order the following items from my cart:\n{cartItems}\nTotal: P{total}",
     "prefilledTextWishlist": "Hi Solace, I want to inquire about these wishlist items:\n{wishlistItems}",
-    "chatWidgetWelcome": "Atelier Assistant is online... How can we help you with sizes or custom drops today?"
+    "chatWidgetWelcome": " Assistant is online... How can we help you with sizes or custom drops today?"
   },
   "instagram": {
-    "username": "solace.atelier",
+    "username": "solace.",
     "posts": [
       {
         "id": "ig-1",
