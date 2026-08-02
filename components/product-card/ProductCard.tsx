@@ -18,6 +18,8 @@ export default function ProductCard({ product }: ProductCardProps) {
   const [isHovered, setIsHovered] = useState(false);
 
   const isWishlisted = wishlist.some((item) => item.id === product.id);
+  const hasImages = product.images && product.images.length > 0;
+  const hasSizes = product.sizes && product.sizes.length > 0;
 
   const handleQuickWhatsApp = (e: React.MouseEvent, size: string) => {
     e.preventDefault();
@@ -78,15 +80,16 @@ export default function ProductCard({ product }: ProductCardProps) {
         {/* Link wraps image for routing */}
         <Link href={`/product/${product.slug}`} className="block w-full h-full">
           <ProductImage
-            src={product.images[0]}
+            src={hasImages ? product.images[0] : undefined}
             alt={product.name}
             className="transition-transform duration-1000 ease-out group-hover:scale-105"
+            showGrayscale={false}
           />
         </Link>
 
         {/* Quick Add Sizes Overlay (Slides up on desktop hover) */}
         <AnimatePresence>
-          {isHovered && (
+          {isHovered && hasSizes && (
             <motion.div
               initial={{ y: '100%', opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
@@ -131,15 +134,15 @@ export default function ProductCard({ product }: ProductCardProps) {
           {product.oldPrice ? (
             <>
               <span className="text-[11px] font-mono text-text-secondary line-through font-medium">
-                P{product.oldPrice}
+                P{product.oldPrice.toFixed(2)}
               </span>
               <span className="text-[12px] font-mono font-bold text-white">
-                P{product.price}
+                P{product.price.toFixed(2)}
               </span>
             </>
           ) : (
             <span className="text-[12px] font-mono font-bold text-white">
-              P{product.price}
+              P{product.price.toFixed(2)}
             </span>
           )}
         </div>

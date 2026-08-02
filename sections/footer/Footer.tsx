@@ -118,7 +118,7 @@ export default function Footer() {
             <Link href="#" className="hover:text-white transition-colors">Terms of Atelier</Link>
           </div>
           <div>
-            <span>DESIGNED BY ANTIGRAVITY</span>
+            <span>DESIGNED BY geeks4weeks</span>
           </div>
         </div>
 

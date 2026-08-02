@@ -5,11 +5,12 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { EyeOff } from 'lucide-react';
 
 interface ProductImageProps {
-  src: string;
+  src?: string;
   alt: string;
   className?: string;
   aspectRatioClassName?: string;
   loadingLazy?: boolean;
+  showGrayscale?: boolean;
 }
 
 export default function ProductImage({
@@ -18,6 +19,7 @@ export default function ProductImage({
   className = '',
   aspectRatioClassName = 'aspect-3/4',
   loadingLazy = true,
+  showGrayscale = false, // Changed to false — show real colors for real products!
 }: ProductImageProps) {
   const [isLoaded, setIsLoaded] = useState(false);
   const [hasError, setHasError] = useState(false);
@@ -26,6 +28,17 @@ export default function ProductImage({
     setIsLoaded(false);
     setHasError(false);
   }, [src]);
+
+  // If no src provided, show placeholder immediately
+  if (!src) {
+    return (
+      <div
+        className={`relative w-full overflow-hidden bg-neutral-950 border border-border-custom/50 flex items-center justify-center ${aspectRatioClassName}`}
+      >
+        <EyeOff className="text-text-secondary" size={24} />
+      </div>
+    );
+  }
 
   return (
     <div
@@ -46,7 +59,7 @@ export default function ProductImage({
               viewBox="0 0 100 100"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
-              className="text-neutral-700 animate-spin-slow relative"
+              className="text-neutral-700 animate-spin-slow relative z-10"
             >
               <path d="M50 10V90" stroke="currentColor" strokeWidth="6" />
               <path d="M10 50H90" stroke="currentColor" strokeWidth="6" />
@@ -60,7 +73,7 @@ export default function ProductImage({
         <div className="absolute inset-0 bg-neutral-950 flex flex-col items-center justify-center p-4 text-center z-10">
           <EyeOff className="text-text-secondary mb-2" size={18} />
           <span className="text-[8px] font-mono tracking-widest text-text-secondary uppercase">
-            IMAGE ARCHIVED
+            IMAGE NOT FOUND
           </span>
           <span className="text-[7px] font-mono text-neutral-800 mt-1 uppercase max-w-[120px] truncate">
             {alt}
@@ -69,14 +82,14 @@ export default function ProductImage({
       ) : (
         /* eslint-disable-next-line @next/next/no-img-element */
         <img
-          src={src || 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&q=80&w=600'}
+          src={src}
           alt={alt}
           onLoad={() => setIsLoaded(true)}
           onError={() => setHasError(true)}
           loading={loadingLazy ? 'lazy' : 'eager'}
-          className={`w-full h-full object-cover object-center grayscale brightness-90 transition-all duration-1000 ease-out ${
+          className={`w-full h-full object-cover object-center transition-all duration-1000 ease-out ${
             isLoaded ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
-          } ${className}`}
+          } ${showGrayscale ? 'grayscale brightness-90' : ''} ${className}`}
         />
       )}
 

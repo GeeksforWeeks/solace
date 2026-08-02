@@ -4,14 +4,16 @@ import React from 'react';
 import { motion, Variants } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import ProductCard from '@/components/product-card/ProductCard';
-import productsData from '@/data/products.json';
 import Link from 'next/link';
+import { useProducts } from '@/hooks/use-products';
 
 export default function ProductsGrid() {
   const { ref, inView } = useInView({
     triggerOnce: true,
     threshold: 0.1,
   });
+
+  const { products, loading } = useProducts();
 
   const headingVariants: Variants = {
     hidden: { opacity: 0, y: 40 },
@@ -47,7 +49,7 @@ export default function ProductsGrid() {
   };
 
   // Limit to first 4 products for homepage grid
-  const displayedProducts = productsData.slice(0, 4);
+  const displayedProducts = products.slice(0, 4);
 
   return (
     <section ref={ref} className="py-24 bg-black border-b border-border-custom px-6 md:px-12">
@@ -74,18 +76,32 @@ export default function ProductsGrid() {
         </motion.div>
 
         {/* Products Grid */}
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          animate={inView ? 'visible' : 'hidden'}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
-        >
-          {displayedProducts.map((product) => (
-            <motion.div key={product.id} variants={itemVariants}>
-              <ProductCard product={product} />
-            </motion.div>
-          ))}
-        </motion.div>
+        {loading ? (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {[...Array(4)].map((_, i) => (
+              <div key={i} className="aspect-3/4 bg-neutral-900 animate-pulse rounded" />
+            ))}
+          </div>
+        ) : displayedProducts.length === 0 ? (
+          <div className="text-center py-12">
+            <p className="text-text-secondary uppercase tracking-widest text-xs">
+              No products available yet. Check back soon!
+            </p>
+          </div>
+        ) : (
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            animate={inView ? 'visible' : 'hidden'}
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"
+          >
+            {displayedProducts.map((product) => (
+              <motion.div key={product.id} variants={itemVariants}>
+                <ProductCard product={product} />
+              </motion.div>
+            ))}
+          </motion.div>
+        )}
 
         {/* View All Button */}
         <motion.div

@@ -5,7 +5,6 @@ import InfiniteMarquee from '@/components/marquee/InfiniteMarquee';
 import Mission from '@/sections/mission/Mission';
 import Collections from '@/sections/collections/Collections';
 import Featured from '@/sections/featured/Featured';
-import InstagramLookbook from '@/components/instagram/InstagramLookbook';
 import Newsletter from '@/sections/newsletter/Newsletter';
 import Footer from '@/sections/footer/Footer';
 
@@ -18,7 +17,6 @@ export default function Home() {
       <Mission />
       <Collections />
       <Featured />
-      <InstagramLookbook />
       <Newsletter />
       <Footer />
     </>
