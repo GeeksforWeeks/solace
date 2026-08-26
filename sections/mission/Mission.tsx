@@ -108,9 +108,7 @@ export default function Mission() {
               GLOBAL SOURCES. <br />
               LOCAL DELIVERY.
             </h2>
-            <p className="text-text-secondary text-sm leading-relaxed uppercase tracking-wider">
-              We source directly from international retailers and brand-authorized channels — Chrome Hearts, Crocs, designer handbags, premium eyewear, and carefully curated accessories that align with our aesthetic.
-            </p>
+            
             <p className="text-text-secondary text-xs leading-relaxed max-w-lg">
               Every piece is vetted for authenticity and quality. Fast shipping, secure handling, and transparent pricing. Solace makes the rare accessible. Not for everyone — for individuals who know what they want.
             </p>
