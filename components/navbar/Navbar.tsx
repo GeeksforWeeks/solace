@@ -62,10 +62,10 @@ export default function Navbar() {
 
       {/* Floating Navbar */}
       <header
-        className={`fixed top-7 left-0 w-full z-[80] transition-all duration-500 border-b ${
+        className={`fixed left-0 w-full z-[80] transition-all duration-500 border-b ${
           isScrolled
-            ? 'bg-black/90 border-border-custom backdrop-blur-md py-4'
-            : 'bg-transparent border-transparent py-6'
+            ? 'top-0 bg-black/90 border-border-custom backdrop-blur-md py-4'
+            : 'top-7 bg-transparent border-transparent py-6'
         }`}
       >
         <div className="max-w-7xl mx-auto px-6 md:px-12 flex items-center justify-between relative">

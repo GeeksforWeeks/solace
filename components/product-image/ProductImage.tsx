@@ -23,10 +23,16 @@ export default function ProductImage({
 }: ProductImageProps) {
   const [isLoaded, setIsLoaded] = useState(false);
   const [hasError, setHasError] = useState(false);
+  const imgRef = React.useRef<HTMLImageElement>(null);
 
   useEffect(() => {
     setIsLoaded(false);
     setHasError(false);
+
+    // If the image is cached, it might already be loaded before React mounts
+    if (imgRef.current && imgRef.current.complete) {
+      setIsLoaded(true);
+    }
   }, [src]);
 
   // If no src provided, show placeholder immediately
@@ -53,18 +59,6 @@ export default function ProductImage({
             className="absolute inset-0 bg-neutral-900 flex items-center justify-center z-10"
           >
             <div className="absolute inset-0 bg-gradient-to-r from-neutral-900 via-neutral-800 to-neutral-900 bg-[length:200%_100%] animate-pulse" />
-            <svg
-              width="24"
-              height="24"
-              viewBox="0 0 100 100"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-              className="text-neutral-700 animate-spin-slow relative z-10"
-            >
-              <path d="M50 10V90" stroke="currentColor" strokeWidth="6" />
-              <path d="M10 50H90" stroke="currentColor" strokeWidth="6" />
-              <rect x="30" y="30" width="40" height="40" stroke="currentColor" strokeWidth="4" fill="none" />
-            </svg>
           </motion.div>
         )}
       </AnimatePresence>
@@ -82,6 +76,7 @@ export default function ProductImage({
       ) : (
         /* eslint-disable-next-line @next/next/no-img-element */
         <img
+          ref={imgRef}
           src={src}
           alt={alt}
           onLoad={() => setIsLoaded(true)}

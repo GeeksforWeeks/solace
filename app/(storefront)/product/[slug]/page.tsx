@@ -7,9 +7,6 @@ import Footer from "@/sections/footer/Footer";
 import {
   Heart,
   ShoppingBag,
-  Truck,
-  RefreshCw,
-  Shield,
   AlertTriangle,
 } from "lucide-react";
 import Link from "next/link";
@@ -31,7 +28,7 @@ export default function ProductPage({ params }: ProductPageProps) {
   const [activeImage, setActiveImage] = useState("");
   const [selectedSize, setSelectedSize] = useState("");
   const [showSizeError, setShowSizeError] = useState(false);
-  const [activeTab, setActiveTab] = useState<"desc" | "materials" | "shipping">(
+  const [activeTab, setActiveTab] = useState<"desc" | "materials">(
     "desc",
   );
 
@@ -263,7 +260,7 @@ export default function ProductPage({ params }: ProductPageProps) {
               {/* Informational Tabs Accordion */}
               <div className="border-t border-border-custom pt-6">
                 <div className="flex border-b border-border-custom text-[10px] font-bold tracking-widest uppercase">
-                  {(["desc", "materials", "shipping"] as const).map((tab) => (
+                  {(["desc", "materials"] as const).map((tab) => (
                     <button
                       key={tab}
                       onClick={() => setActiveTab(tab)}
@@ -273,11 +270,7 @@ export default function ProductPage({ params }: ProductPageProps) {
                           : "border-transparent text-text-secondary hover:text-white"
                       }`}
                     >
-                      {tab === "desc"
-                        ? "SPECIFICATIONS"
-                        : tab === "materials"
-                          ? "ORIGINS"
-                          : "SHIPPING"}
+                      {tab === "desc" ? "SPECIFICATIONS" : "ORIGINS"}
                     </button>
                   ))}
                 </div>
@@ -311,30 +304,12 @@ export default function ProductPage({ params }: ProductPageProps) {
                       </p>
                     </div>
                   )}
-                  {activeTab === "shipping" && (
-                    <div className="space-y-4">
-                      <div className="flex gap-3 items-start">
-                        <Truck size={14} className="shrink-0 mt-0.5" />
-                        <p className="text-[11px]">
-                          Free express dispatch globally on orders over $300.
-                          Standard courier rates apply.
-                        </p>
-                      </div>
-                      <div className="flex gap-3 items-start">
-                        <RefreshCw size={14} className="shrink-0 mt-0.5" />
-                        <p className="text-[11px]">
-                          Archived limited releases are eligible for custom size
-                          returns within 14 days.
-                        </p>
-                      </div>
-                      <div className="flex gap-3 items-start">
-                        <Shield size={14} className="shrink-0 mt-0.5" />
-                        <p className="text-[11px]">
-                          Ships in heavy organic Solace signature packaging.
-                        </p>
-                      </div>
-                    </div>
-                  )}
+                </div>
+
+                <div className="border-t border-border-custom/50 pt-4 mt-2">
+                  <p className="text-[10px] font-bold text-text-secondary uppercase tracking-[0.2em]">
+                    We courier countrywide
+                  </p>
                 </div>
               </div>
             </div>

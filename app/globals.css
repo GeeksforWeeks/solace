@@ -10,6 +10,9 @@
   --color-text-primary: #FFFFFF;
   --color-text-secondary: #9A9A9A;
   --color-accent: #F5F5F5;
+
+  --aspect-3/4: 3 / 4;
+  --aspect-4/5: 4 / 5;
 }
 
 :root {
